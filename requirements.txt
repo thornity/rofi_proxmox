@@ -1,0 +1,4 @@
+python-dotenv
+proxmoxer
+urllib3
+requests
