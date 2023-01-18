@@ -7,8 +7,13 @@ This can be paired with Rofi to provide a quick IP lookup to your clipboard
 ```bash
 
 # Copy env & modify it
-cp ./.env.dist ./.env
-vim ./.env
+mkdir -p ~/rofi_promox && cd "$_"
+wget https://raw.githubusercontent.com/thornity/rofi_proxmox/main/.env.dist -O ~/rofi_promox/.env
+vim ~/rofi_promox/.env
 
-docker run -v ${PWD}/.env:/usr/app/src/.env ghcr.io/thornity/rofi_proxmox:latest | rofi -dmenu -p "IP address To Copy" | cut -d ',' -f4 | xclip -selection clipboard
+# Pull container
+docker pull thornity/rofi_proxmox:latest
+
+# Run
+docker run -v ${PWD}/.env:/usr/app/src/.env thornity/rofi_proxmox:latest | rofi -dmenu -p "IP address To Copy" | cut -d ',' -f4 | xclip -selection clipboard
 ```
